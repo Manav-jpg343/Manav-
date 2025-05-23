@@ -1,6 +1,7 @@
 from flask import Flask, request, session
 from twilio.twiml.messaging_response import MessagingResponse
 from data import lessons, summaries, quizzes
+import os  # <-- Added to get PORT from environment
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -91,4 +92,5 @@ def whatsapp_bot():
     return str(resp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
